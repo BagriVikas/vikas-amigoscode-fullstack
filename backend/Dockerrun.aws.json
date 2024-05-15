@@ -1,0 +1,23 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "vikas-demo-api-container",
+      "image": "bagrivikas/vikas-demo-api:latest",
+      "essential": true,
+      "memory": 512,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8081
+        }
+      ],
+      "environment": [
+        {
+          "name": "SPRING_DATASOURCE_URL",
+          "value":"jdbc:postgresql://awseb-e-s6iiwpqqfh-stack-awsebrdsdatabase-ayyurmwkpv27.cvuugisgaryn.ap-south-1.rds.amazonaws.com:5432/database1"
+        }
+      ]
+    }
+  ]
+}

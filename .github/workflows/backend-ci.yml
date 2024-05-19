@@ -16,7 +16,7 @@ jobs:
         env:
           POSTGRES_USER: vikasbagri
           POSTGRES_PASSWORD: vikasbagri
-          PGDATA: database1
+          POSTGRES_DB: database1
         options: >-
           --health-cmd pg_isready
           --health-interval 10s

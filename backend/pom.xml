@@ -187,10 +187,6 @@
 						<tags>
 							<tag>latest</tag>
 						</tags>
-						<auth>
-							<username>bagrivikas1998@gmail.com</username>
-							<password>Vikas@123</password>
-						</auth>
 					</to>
 				</configuration>
 

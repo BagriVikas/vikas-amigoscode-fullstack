@@ -63,7 +63,7 @@ jobs:
           version_description: ${{github.SHA}}
           region: ${{ secrets.EB_REGION }}
           deployment_package: backend/Dockerrun.aws.json
-      - name: Commit Dockerrun.aws.json changes
+      - name: Commit and Push Dockerrun.aws.json changes
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com

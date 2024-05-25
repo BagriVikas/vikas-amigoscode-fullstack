@@ -63,15 +63,17 @@ jobs:
           version_description: ${{github.SHA}}
           region: ${{ secrets.EB_REGION }}
           deployment_package: backend/Dockerrun.aws.json
-      - name: Commit and Push Dockerrun.aws.json
+      - name: Commit Dockerrun.aws.json changes
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
           git commit -m 'update Dockerrun.aws.json docker image with a new tag ${{steps.build-number.outputs.BUILD_NUMBER}}'
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN_TO_LOGIN_TO_GITHUB }}
+      - name: Push changes of Dockerrun.aws.json
+          uses: ad-m/github-push-action@master
+          with:
+            github_token: ${{ secrets.ACCESS_TOKEN_TO_LOGIN_TO_GITHUB }}
+            branch: ${{ github.ref }}
 
 
 

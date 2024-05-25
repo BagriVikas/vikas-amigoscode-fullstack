@@ -67,10 +67,11 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git config user.password ${{ secrets.ACCESS_TOKEN_TO_LOGIN_TO_GITHUB }}
           git add .
           git commit -m 'update Dockerrun.aws.json docker image with a new tag ${{steps.build-number.outputs.BUILD_NUMBER}}'
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN_TO_LOGIN_TO_GITHUB }}
 
 
 

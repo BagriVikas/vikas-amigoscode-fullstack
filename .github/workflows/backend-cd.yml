@@ -50,6 +50,11 @@ jobs:
         run: echo "BUILD_NUMBER=$(date '+%d.%m.%Y.%H.%M.%S')" >> $GITHUB_OUTPUT
       - name: Build package push with Maven plugin JIB
         run: mvn -ntp -B verify -Ddocker.image.tag=${{steps.build-number.outputs.BUILD_NUMBER}} jib:build
+      - name: Image created by JIB
+        run: >
+          curl -X POST -H 'Content-type: application/json'
+          --data '{"text":"Image with tag: ${{steps.build-number.outputs.BUILD_NUMBER}} created by JIB and pushed to Docker Hub :docker:"}'
+          ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Update Dockerrun.aws.json image tag with the new build number
         run: |
           echo "Dockerrun.aws.json before updating image tag"
@@ -57,6 +62,11 @@ jobs:
           sed -i -E 's_(bagrivikas/vikas-demo-api:)([^"]*)_\1'${{steps.build-number.outputs.BUILD_NUMBER}}'_' Dockerrun.aws.json
           echo "Dockerrun.aws.json after updating image tag"
           cat Dockerrun.aws.json
+      - name: Configure AWS ElasticBeanstalk to run the application
+          run: >
+            curl -X POST -H 'Content-type: application/json'
+            --data '{"text":"Setting up AWS Elastic Beanstalk to run the application... :aws:"}'
+            ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v22
         with:
@@ -68,6 +78,11 @@ jobs:
           version_description: ${{github.SHA}}
           region: ${{ secrets.EB_REGION }}
           deployment_package: backend/Dockerrun.aws.json
+      - name: Successfully deployed application
+          run: >
+            curl -X POST -H 'Content-type: application/json'
+            --data '{"text":"Successfully deployed application :pedro:"}'
+            ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Commit and Push Dockerrun.aws.json changes
         run: |
           git config user.name github-actions

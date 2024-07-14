@@ -63,10 +63,10 @@ jobs:
           echo "Dockerrun.aws.json after updating image tag"
           cat Dockerrun.aws.json
       - name: Configure AWS ElasticBeanstalk to run the application
-          run: >
-            curl -X POST -H 'Content-type: application/json'
-            --data '{"text":"Setting up AWS Elastic Beanstalk to run the application... :aws:"}'
-            ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: >
+          curl -X POST -H 'Content-type: application/json'
+          --data '{"text":"Setting up AWS Elastic Beanstalk to run the application... :aws:"}'
+          ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v22
         with:
@@ -79,10 +79,10 @@ jobs:
           region: ${{ secrets.EB_REGION }}
           deployment_package: backend/Dockerrun.aws.json
       - name: Successfully deployed application
-          run: >
-            curl -X POST -H 'Content-type: application/json'
-            --data '{"text":"Successfully deployed application :pedro:"}'
-            ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: >
+          curl -X POST -H 'Content-type: application/json'
+          --data '{"text":"Successfully deployed application :pedro:"}'
+          ${{ secrets.SLACK_WEBHOOK_URL }}
       - name: Commit and Push Dockerrun.aws.json changes
         run: |
           git config user.name github-actions

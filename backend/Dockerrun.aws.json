@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "vikas-demo-api-container",
-      "image": "bagrivikas/vikas-demo-api:13.07.2024.18.35.50",
+      "image": "bagrivikas/vikas-demo-api:14.07.2024.07.37.55",
       "essential": true,
       "memory": 512,
       "portMappings": [
